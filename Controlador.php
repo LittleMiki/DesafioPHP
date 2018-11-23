@@ -37,6 +37,9 @@ if (isset($_REQUEST['aceptar'])) {
 
     //------- Registro ----------// 
     if ($_REQUEST['aceptar'] == 'Aceptar') {
+        $dir_subida = '/var/www/html/PHP/DesafioPHP/imagenes/';
+        
+        
         $co->insertar($_REQUEST['pass'], $_REQUEST['correo'],$_REQUEST['nombre'],$_REQUEST[]);
         $co->nuevoUsuario($_REQUEST['correo']);
         $mensa =$mensa. $u->getCorreo() . 'Se ha registrado en la BBDD';
