@@ -15,13 +15,17 @@ class Usuario {
 
     private $correo;
     private $pass;
+    private $nombre;
+    private $foto;
 
-    function __construct($correo, $pass) {
+    function __construct($correo, $pass, $nombre, $foto) {
         $this->correo = $correo;
         $this->pass = $pass;
+        $this->nombre = $nombre;
+        $this->foto = $foto;
     }
 
-    function getCorreo() {
+        function getCorreo() {
         return $this->correo;
     }
 
@@ -36,6 +40,22 @@ class Usuario {
     function setPass($pass) {
         $this->pass = $pass;
     }
+    function getNombre() {
+        return $this->nombre;
+    }
+
+    function getFoto() {
+        return $this->foto;
+    }
+
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
+    function setFoto($foto) {
+        $this->foto = $foto;
+    }
+
 
 }
 
