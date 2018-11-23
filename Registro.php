@@ -19,7 +19,7 @@ and open the template in the editor.
                 <label>Nombre:</label><input type="text" name="nombre" value="" placeholder="Nombre">
                 <label>Pass:</label><input type="password" name="pass" value="">
                 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
-                <label>Imagen de Perfil:</label> <input name="imagen" type="file" /><br>
+                <label>Imagen de Perfil:</label> <input name="imagen" type="file" accept="image/jpeg" /><br>
                 <input type="submit" name="aceptar" value="Aceptar">
                 <input type="submit" name="aceptar" value="Cancelar"> 
             </form>
