@@ -18,6 +18,7 @@ and open the template in the editor.
                 <input type="email" name="correo" value="" placeholder="Introduce tu correo">
                 <input type="text" name="nombre" value="" placeholder="Nombre">
                 <input type="password" name="pass" value="">
+                <input type="file" name="fecha">
                 <input type="submit" name="registro" value="Aceptar">
                 <input type="submit" name="registro" value="Cancelar"> 
             </form>
