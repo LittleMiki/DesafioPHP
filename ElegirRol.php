@@ -16,7 +16,7 @@ and open the template in the editor.
         session_start();
         $co = new Conexion(Constantes::$IP, Constantes::$USUARIO, Constantes::$PASS, Constantes::$BBDD);
         $u = $_SESSION['usuario'];
-        $roles=$co->devolverRoles($u->getCorreo());
+        $roles=$co->devolverRoles($u);
         echo " <form name='formulario' method='POST' action='Controlador.php'>  <select name='rol'>";
         for ($i=0; $i< count($roles);$i++){
             echo '<option>'.$roles[$i].'</option>';

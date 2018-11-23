@@ -1,4 +1,5 @@
 <?php
+
 require_once 'Conexion.php';
 require_once 'Bitacora.php';
 session_start();
@@ -9,9 +10,9 @@ session_start();
  */
 
 //------------ Login  Y  Registro -------------//
-$co= new Conexion('localhost','daw206','daw206','desafioPHP');
+$co = new Conexion('localhost', 'daw206', 'daw206', 'desafioPHP');
 $info = getdate();
-$mensa = $info['hours'].' : '.$info['minutes'].' : '.$info['seconds'].'  '.$info['mday'].'/'.$info['mon'].'/'.$info['year'].' ';
+$mensa = $info['hours'] . ' : ' . $info['minutes'] . ' : ' . $info['seconds'] . '  ' . $info['mday'] . '/' . $info['mon'] . '/' . $info['year'] . ' ';
 
 
 //--------------- LOGIN ----------------------//
@@ -19,15 +20,14 @@ if (isset($_REQUEST['aceptar'])) {
     if ($_REQUEST['aceptar'] == 'Aceptar') {
 
         if ($co->comprobarLogin($_REQUEST['correo'], $_REQUEST['pass'])) {
-            $u = null;
-            $u = $co->devolverUsuario($_REQUEST['correo']);
-            $_SESSION['usuario'] = $u;
+            
+            $_SESSION['usuario'] = $_REQUEST['correo'];
 
-            $mensa = $mensa.$u->getCorreo() . ' Se ha logeado';
+            $mensa = $mensa . $_REQUEST['correo'] . ' Se ha logeado';
             Bitacora::guardarArchivo($mensa);
 
             header("Location: ElegirRol.php");
-        }else{
+        } else {
             header("Location: index.php");
         }
     }
@@ -37,14 +37,16 @@ if (isset($_REQUEST['aceptar'])) {
 
     //------- Registro ----------// 
     if ($_REQUEST['aceptar'] == 'Aceptar') {
-        $dir_subida = '/var/www/html/PHP/DesafioPHP/imagenes/';
-        
-        
-        $co->insertar($_REQUEST['pass'], $_REQUEST['correo'],$_REQUEST['nombre'],$_REQUEST[]);
-        $co->nuevoUsuario($_REQUEST['correo']);
-        $mensa =$mensa. $u->getCorreo() . 'Se ha registrado en la BBDD';
-        Bitacora::guardarArchivo($mensa);
-        header("Location: index.php");
+        $dir_subida = './Imagenes/';
+        $fichero_subido = $dir_subida . $_REQUEST['correo'] . '.jpg';
+
+        if (move_uploaded_file($_FILES['imagen']['tmp_name'], $fichero_subido)) {
+            $co->insertar($_REQUEST['pass'], $_REQUEST['correo'], $_REQUEST['nombre'], $fichero_subido);
+            $co->nuevoUsuario($_REQUEST['correo']);
+            $mensa = $mensa . $_REQUEST['correo'] . 'Se ha registrado en la BBDD';
+            Bitacora::guardarArchivo($mensa);
+            header("Location: index.php");
+        }
     }
     if ($_REQUEST['aceptar'] == 'Cancelar') {
         header("Location: index.php");
@@ -59,40 +61,7 @@ if (isset($_REQUEST['enviarRol'])) {
     }
 }
 
-//-----------------Modificar Objetos------------------//.
-if (isset($_REQUEST['enviarObjeto'])) {
-    if ($_REQUEST['enviarObjeto'] == 'Borrar') {
-        // $co = new Conexion('localhost', 'root', '', 'DesafioPHP');
-        $mensa = $mensa.'Se ha borrado un objeto con id : ' . $_REQUEST['id'];
-        $co->borrar($_REQUEST['id']);
 
-        Bitacora::guardarArchivo($mensa);
-        header("Location: validado.php");
-    }
-    if ($_REQUEST['enviarObjeto'] == 'Modificar') {
-
-        $_SESSION['objeto'] = new Objeto($_REQUEST['id'], $_REQUEST['objt'], $_REQUEST['cantidad']);
-        header("Location: modificar.php");
-    }
-    if ($_REQUEST['enviarObjeto'] == 'Cancelar') {
-        if (isset($_SESSION['objeto'])) {
-            unset($_SESSION['objeto']);
-        }
-        header("Location: validado.php");
-    }
-    if ($_REQUEST['enviarObjeto'] == 'Aceptar') {
-        //  $co = new Conexion('localhost', 'root', '', 'DesafioPHP');
-        $o = $_SESSION['objeto'];
-        $c = $_REQUEST['cantidad'];
-        $co->modificarOBjeto($o->getId(), $c);
-
-        $mensa =$mensa. 'Objeto :' . $o->getNombre() . ' se ha modificado';
-        Bitacora::guardarArchivo($mensa);
-
-        unset($_SESSION['objeto']);
-        header("Location: validado.php");
-    }
-}
 
 //---------------- Manejar Bitacora -----------------//
 if (isset($_REQUEST['bitacora'])) {
@@ -105,9 +74,9 @@ if (isset($_REQUEST['bitacora'])) {
     }
 }
 //-------------------cerrar sesion ---------------------//
-if(isset($_REQUEST['cerrar'])){
+if (isset($_REQUEST['cerrar'])) {
     session_destroy();
-    $mensa = $mensa.' '.$_SESSION['usuario']->getCorreo().' Ha cerrado cerrado sesion.';
+    $mensa = $mensa . ' ' . $_SESSION['usuario']->getCorreo() . ' Ha cerrado cerrado sesion.';
     Bitacora::guardarArchivo($mensa);
     header("Location: index.php");
 }

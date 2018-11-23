@@ -15,7 +15,10 @@ and open the template in the editor.
             require_once 'Usuario.php';
             session_start();
             $a = $_SESSION['usuario'];
-            echo '<h1>Bienvenido ' . $a->getCorreo() . '</h1> ';
+            $co = new Conexion('localhost', 'daw206', 'daw206', 'desafioPHP');
+            $u = $co->devolverUsuario($a);
+            echo '<h1>Bienvenido ' . $u->getCorreo() . '</h1> ';
+            echo "<div> <img src='".$u->getFoto()."'></div>";
         ?>
     </body>
 </html>

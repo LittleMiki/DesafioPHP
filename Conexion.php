@@ -27,10 +27,10 @@ class Conexion {
         $this->bbdd = $bbdd;
     }
 
-    function insertar($pass, $correo) {
+    function insertar($pass, $correo,$nombre,$foto) {
         // $foto = $this->convertirFoto($img);
         $conexion = new mysqli($this->ip, $this->usuario, $this->pass, $this->bbdd);
-        $sentencia = "INSERT INTO `" . CONSTANTES::$Tusuarios . "` (`correo`, `pass`) VALUES ('" . $correo . "','" . $pass . "')";
+        $sentencia = "INSERT INTO ".Constantes::$TABLAusuarios."(`correo`, `pass`, `nombre`, `foto`) VALUES ('" . $correo . "','" . $pass . "','".$nombre."','".$foto."')";
         $conexion->query($sentencia);
         unset($conexion);
     }
@@ -66,7 +66,7 @@ class Conexion {
         $sentencia = "SELECT * FROM `" . Constantes::$TABLAusuarios . "` where `correo`= '" . $correo . "'";
         if ($resultado = $conexion->query($sentencia)) {
             while ($fila = mysqli_fetch_array($resultado)) {
-                $u = new Usuario($fila[0], $fila[1]);
+                $u = new Usuario($fila[0], $fila[1],$fila[2],$fila[3]);
             }
             mysqli_free_result($resultado);
             $conexion->close();
@@ -116,7 +116,7 @@ class Conexion {
 
     function nuevoUsuario($correo) {
         $conexion = new mysqli($this->ip, $this->usuario, $this->pass, $this->bbdd);
-        $sentencia = "INSERT INTO `" . CONSTANTES::$TusuarioRol . "`(`id`, `CorreoUsuario`, `idRol`) VALUES (null,'" . $correo . "',1)";
+        $sentencia = "INSERT INTO `" . Constantes::$TusuarioRol . "`(`id`, `CorreoUsuario`, `idRol`) VALUES (null,'" . $correo . "',1)";
         $conexion->query($sentencia);
         unset($conexion);
     }
