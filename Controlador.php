@@ -2,6 +2,7 @@
 
 require_once 'Conexion.php';
 require_once 'Bitacora.php';
+require_once 'Reserva.php';
 session_start();
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -10,7 +11,7 @@ session_start();
  */
 
 //------------ Login  Y  Registro -------------//
-$co = new Conexion('localhost', 'daw206', 'daw206', 'desafioPHP');
+$co = new Conexion(Constantes::$IP, Constantes::$USUARIO, Constantes::$PASS, Constantes::$BBDD);
 $info = getdate();
 $mensa = $info['hours'] . ' : ' . $info['minutes'] . ' : ' . $info['seconds'] . '  ' . $info['mday'] . '/' . $info['mon'] . '/' . $info['year'] . ' ';
 
@@ -79,4 +80,13 @@ if (isset($_REQUEST['cerrar'])) {
     $mensa = $mensa . ' ' . $_SESSION['usuario']->getCorreo() . ' Ha cerrado cerrado sesion.';
     Bitacora::guardarArchivo($mensa);
     header("Location: index.php");
+}
+
+if(isset($_REQUEST['reservas'])){
+    if($_REQUEST['reservas'] == 'seleccionar'){
+       $reservas= $co->devolverReservas($_REQUEST['fecha'],$_REQUEST['aula']);
+       $_SESSION['reservas'] = $reservas;
+       header("Location: Logueado.php");
+    }
+    
 }

@@ -4,9 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/html/PHP/DesafioPHP/Registro.php</file>
+            <file>file:/var/www/html/PHP/DesafioPHP/Usuario.php</file>
             <file>file:/var/www/html/PHP/DesafioPHP/Conexion.php</file>
             <file>file:/var/www/html/PHP/DesafioPHP/index.php</file>
             <file>file:/var/www/html/PHP/DesafioPHP/Logueado.php</file>
+            <file>file:/var/www/html/PHP/DesafioPHP/ElegirRol.php</file>
             <file>file:/var/www/html/PHP/DesafioPHP/Controlador.php</file>
         </group>
     </open-files>

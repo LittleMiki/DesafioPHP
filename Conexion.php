@@ -2,6 +2,7 @@
 
 require_once 'Constantes.php';
 require_once 'Usuario.php';
+require_once 'Reserva.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -129,5 +130,27 @@ class Conexion {
         $jpg = str_replace('##', '##', mysql_escape_string($jpg));
         return $jpg;
     }
-
+    function devolverReservas($fecha,$aula){
+        $conexion = new mysqli($this->ip, $this->usuario, $this->pass, $this->bbdd);
+        $sentencia ="SELECT * FROM ".Constantes::$Treservas." WHERE `id_aula` = '".$aula."' and `fecha` = '".$fecha."'";
+        $reserva[] = null;
+        if ($resultado = $conexion->query($sentencia)) {
+            while ($fila = mysqli_fetch_array($resultado)) {
+                $reserva[] = new Reserva($fila['id_horario'],$fila['CorreoUsuario'],$fila['id_aula'],$fila['fecha']);
+            }
+        }
+        return $reserva;
+    }
+    function devolverAulas(){
+         $conexion = new mysqli($this->ip, $this->usuario, $this->pass, $this->bbdd);
+         $sentencia = "SELECT `id_aula` FROM ".Constantes::$Taulas;
+         $aulas= [];
+        if ($resultado = $conexion->query($sentencia)) {
+            while ($fila = mysqli_fetch_array($resultado)) {
+                $aulas[] = $fila[0];
+            }
+        }
+        return $aulas;
+    }
+    
 }

@@ -19,4 +19,7 @@ class Constantes {
     public static $TABLAusuarios = 'usuario';
     public static $TusuarioRol = 'RolAsignado';
     public static $TRol = 'Rol';
+    public static $Taulas = 'Aula';
+    public static $Treservas = 'Reserva';
+    public static $Thorario = 'horario';
 }
