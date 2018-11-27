@@ -42,21 +42,18 @@ and open the template in the editor.
         if ($reservas != null) {
             echo "<div align= 'left'>";
             echo "<h3>Horario</h3>";
-            for ($i = 0; $i < 6; $i++) {
+            for ($i = 1; $i < 7; $i++) {
                 echo "<form method = 'POST' action='Controlador.php'>";
-                for($e = 0; $e < count($reservas); $e++){
-                    if ($reservas[$e]->getHora() == $i){
-                        echo "<input type='text' name='correo' value='".$reservas[$e]->getCorreo()."'>";
-                    }else{
+                        echo "<input type='number' readonly='' name='correo' value='".$i."'>";
                         echo "<input type='text' name='correo' value='Libre'>";
-                        echo "<input type='submit' name='reservas' value='reservar'>";
+                        echo "<input type='submit' name='reservas' value='reservar'> </br>";
                     }
                 }
                 
                 echo "</form>";
-            }
+            
             echo "</div>";
-        }
+        
         ?>
     </body>
 </html>

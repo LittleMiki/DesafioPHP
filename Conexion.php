@@ -132,8 +132,8 @@ class Conexion {
     }
     function devolverReservas($fecha,$aula){
         $conexion = new mysqli($this->ip, $this->usuario, $this->pass, $this->bbdd);
-        $sentencia ="SELECT * FROM ".Constantes::$Treservas." WHERE `id_aula` = '".$aula."' and `fecha` = '".$fecha."'";
-        $reserva[] = null;
+        $sentencia ="SELECT * FROM ".Constantes::$Treservas." WHERE `id_aula` = ".$aula." and `fecha` = '".$fecha."'";
+        //$reserva[] = null;
         if ($resultado = $conexion->query($sentencia)) {
             while ($fila = mysqli_fetch_array($resultado)) {
                 $reserva[] = new Reserva($fila['id_horario'],$fila['CorreoUsuario'],$fila['id_aula'],$fila['fecha']);
